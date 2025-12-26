@@ -1,18 +1,18 @@
 TabS4-OneUI8:
   kernel:
-    - git clone -b pp https://github.com/icepie/android_kernel_samsung_msm8998.git kernel
+    - "git clone -b pp https://github.com/icepie/android_kernel_samsung_msm8998.git kernel"
   clang:
-    - git clone --depth=1 -b main https://gitlab.com/Jprimero15/lolz_clang.git kernel/clang
+    - "git clone --depth=1 -b main https://gitlab.com/Jprimero15/lolz_clang.git kernel/clang"
   config:
-    - cd kernel && make O=out ARCH=arm64 gts4lwifi_eur_open_defconfig
+    - "cd kernel && make O=out ARCH=arm64 gts4lwifi_eur_open_defconfig"
   build:
-    - cd kernel && ARCH=arm64 CROSS_COMPILE="${PWD}/clang/bin/aarch64-linux-gnu-" CROSS_COMPILE_COMPAT="${PWD}/clang/bin/arm-linux-gnueabi-" CROSS_COMPILE_ARM32="${PWD}/clang/bin/arm-linux-gnueabi-" CLANG_TRIPLE=aarch64-linux-gnu- make -j$(nproc --all) LLVM=1 LLVM_IAS=1 LD=ld.lld AR=llvm-ar NM=llvm-nm AS=llvm-as OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip O=out
+    - "cd kernel && ARCH=arm64 CROSS_COMPILE=${PWD}/clang/bin/aarch64-linux-gnu- CROSS_COMPILE_COMPAT=${PWD}/clang/bin/arm-linux-gnueabi- CROSS_COMPILE_ARM32=${PWD}/clang/bin/arm-linux-gnueabi- CLANG_TRIPLE=aarch64-linux-gnu- make -j$(nproc --all) LLVM=1 LLVM_IAS=1 LD=ld.lld AR=llvm-ar NM=llvm-nm AS=llvm-as OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip O=out"
   target:
-    - kernel/out/arch/arm64/boot/Image.gz-dtb
+    - "kernel/out/arch/arm64/boot/Image.gz-dtb"
   anykernel:
-    - gts4l
+    - "gts4l"
   kernelSU:
-    - stable-pin
+    - "stable-pin"
 
 KernelSU:
   version:
