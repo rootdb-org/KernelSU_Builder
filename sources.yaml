@@ -1,18 +1,16 @@
 TabS4-OneUI8:
   kernel:
-    # Changed to -b pp to match your link and added 'kernel' folder destination
-    - git clone https://github.com/icepie/android_kernel_samsung_msm8998.git -b pp kernel
+    - https://github.com/icepie/android_kernel_samsung_msm8998.git
+    - pp
   clang:
-    - git clone --depth=1 https://gitlab.com/Jprimero15/lolz_clang.git -b main kernel/clang
+    - https://gitlab.com/Jprimero15/lolz_clang.git
+    - main
   config:
-    # Corrected the filename to gts4lwifi_eur_open_defconfig
-    - cd kernel && make O=out ARCH=arm64 gts4lwifi_eur_open_defconfig
+    - gts4lwifi_eur_open_defconfig
   build:
-    # Added 'cd kernel' to ensure make finds the Makefile
-    - cd kernel && ARCH=arm64 CROSS_COMPILE="${PWD}/clang/bin/aarch64-linux-gnu-" CROSS_COMPILE_COMPAT="${PWD}/clang/bin/arm-linux-gnueabi-" CROSS_COMPILE_ARM32="${PWD}/clang/bin/arm-linux-gnueabi-" CLANG_TRIPLE=aarch64-linux-gnu- make -j$(nproc --all) LLVM=1 LLVM_IAS=1 LD=ld.lld AR=llvm-ar NM=llvm-nm AS=llvm-as OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip O=out
+    - ARCH=arm64 CROSS_COMPILE="${PWD}/clang/bin/aarch64-linux-gnu-" CROSS_COMPILE_COMPAT="${PWD}/clang/bin/arm-linux-gnueabi-" CROSS_COMPILE_ARM32="${PWD}/clang/bin/arm-linux-gnueabi-" CLANG_TRIPLE=aarch64-linux-gnu- make -j$(nproc --all) LLVM=1 LLVM_IAS=1 LD=ld.lld AR=llvm-ar NM=llvm-nm AS=llvm-as OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip O=out
   target:
-    # icepie kernel usually outputs Image.gz-dtb
-    - kernel/out/arch/arm64/boot/Image.gz-dtb
+    - out/arch/arm64/boot/Image.gz-dtb
   anykernel:
     - gts4l
   kernelSU:
